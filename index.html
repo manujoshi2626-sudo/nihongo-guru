@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nihongo Guru - जापानी सीखें</title>
+<style>
+body{margin:0;background:#f3f5fb;color:#172b4d;font-family:Arial,sans-serif}
+header{background:#172b4d;color:white;padding:22px;text-align:center}
+main{max-width:700px;margin:auto;padding:16px}
+.card{background:white;padding:20px;margin:14px 0;border-radius:16px;box-shadow:0 3px 12px #0001}
+h1{margin:5px}h2{font-size:21px}
+button{background:#6658d9;color:white;border:0;border-radius:10px;padding:12px;margin:5px;font-size:15px}
+button:active{opacity:.7}
+.item{display:inline-block;background:#f0efff;padding:15px;margin:5px;border-radius:12px;text-align:center}
+.jap{font-size:28px;font-weight:bold}
+.muted{color:#667085}
+#progress{background:#ddd;border-radius:20px;height:12px}
+#bar{background:#6658d9;width:0;height:12px;border-radius:20px}
+</style>
+</head>
+<body>
+<header>
+<h1>日本語 गुरु</h1>
+<p>हिंदी माध्यम से जापानी सीखें</p>
+</header>
+<main>
+<div class="card">
+<h2>こんにちは！ नमस्ते!</h2>
+<p>आपका जापानी सीखने का सफर यहाँ शुरू होता है।</p>
+<b>आपकी प्रगति: <span id="count">0</span>/4</b>
+<div id="progress"><div id="bar"></div></div>
+</div>
+
+<div class="card">
+<h2>📚 Learning Room</h2>
+<button onclick="show('hira')">Hiragana</button>
+<button onclick="show('words')">Vocabulary</button>
+<button onclick="show('grammar')">Grammar</button>
+<button onclick="show('kanji')">Kanji</button>
+</div>
+
+<div class="card" id="lesson">
+<h2>Hiragana: あいうえお</h2>
+<p>जापानी के पाँच शुरुआती स्वर सीखें।</p>
+<div class="item"><div class="jap">あ</div>a - अ</div>
+<div class="item"><div class="jap">い</div>i - इ</div>
+<div class="item"><div class="jap">う</div>u - उ</div>
+<div class="item"><div class="jap">え</div>e - ए</div>
+<div class="item"><div class="jap">お</div>o - ओ</div>
+<br><button onclick="complete('hira')">पाठ पूरा करें ✓</button>
+</div>
+
+<div class="card">
+<h2>📝 Mini Quiz</h2>
+<p id="question">あ का उच्चारण क्या है?</p>
+<div id="answers">
+<button onclick="answer(0)">इ</button>
+<button onclick="answer(1)">अ</button>
+<button onclick="answer(2)">उ</button>
+<button onclick="answer(3)">ए</button>
+</div>
+<p id="result"></p>
+</div>
+</main>
+<script>
+const data={
+hira:["Hiragana: あいうえお","हिरागाना जापानी की बुनियादी लिपि है।","あ = a (अ), い = i (इ), う = u (उ), え = e (ए), お = o (ओ)"],
+words:["Vocabulary","रोजमर्रा के जापानी शब्द","こんにちは = नमस्ते<br>ありがとう = धन्यवाद<br>はい = हाँ<br>いいえ = नहीं<br>みず = पानी"],
+grammar:["Grammar: です","です (desu) विनम्र वाक्य के अंत में आता है।","わたしは がくせい です。<br>Watashi wa gakusei desu.<br>अर्थ: मैं विद्यार्थी हूँ।"],
+kanji:["Kanji","कुछ शुरुआती कांजी सीखें।","日 = सूरज / दिन<br>月 = चाँद / महीना<br>人 = व्यक्ति<br>山 = पहाड़<br>水 = पानी"]
+};
+let done=JSON.parse(localStorage.getItem("done")||"[]");
+function update(){
+document.getElementById("count").innerText=done.length;
+document.getElementById("bar").style.width=(done.length/4*100)+"%";
+}
+function show(id){
+let d=data[id];
+document.getElementById("lesson").innerHTML="<h2>"+d[0]+"</h2><p>"+d[1]+"</p><p>"+d[2]+"</p><button onclick=\"complete('"+id+"')\">पाठ पूरा करें ✓</button>";
+}
+function complete(id){
+if(!done.includes(id)){done.push(id);localStorage.setItem("done",JSON.stringify(done));}
+update();
+alert("पाठ पूरा हुआ! शाबाश।");
+}
+function answer(n){
+document.getElementById("result").innerText=n===1?"सही जवाब! あ का उच्चारण अ है।":"गलत जवाब। सही उत्तर है अ।";
+}
+update();
+</script>
+</body>
+  </html>
+  
